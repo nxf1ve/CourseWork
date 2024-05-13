@@ -5,16 +5,17 @@ namespace CourseWork
 {
     public partial class FormHashTable : Form
     {
-        private HashTable hashTable;
+        private HashTableCondition hashTable;
         public FormHashTable()
         {
             InitializeComponent();
-            hashTable = new HashTable();
+            hashTable = hashTable.GetHashTableState();
         }
         private void buttonInsert_Click(object sender, EventArgs e)
         {
-            if (int.TryParse(inputKeyTextBox.Text, out int key) && int.TryParse(inputValueTextBox.Text, out int value))
+            if (inputKeyTextBox.Text != null && int.TryParse(inputValueTextBox.Text, out int value))
             {
+                string key = inputKeyTextBox.Text;
                 hashTable.Insert(key, value);
                 UpdateHashTableVisualization();
             }
@@ -26,8 +27,9 @@ namespace CourseWork
 
         private void buttonRemove_Click(object sender, EventArgs e)
         {
-            if (int.TryParse(inputKeyTextBox.Text, out int key))
+            if (inputKeyTextBox.Text != null)
             {
+                string key = inputKeyTextBox.Text;
                 hashTable.Delete(key);
                 UpdateHashTableVisualization();
             }

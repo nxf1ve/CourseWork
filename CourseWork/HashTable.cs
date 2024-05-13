@@ -5,26 +5,30 @@ namespace CourseWork
 {
     public class HashTable
     {
-        private readonly int _maxSize = 32;
+        private int _size;
+        private List<HashItem>[] _items;
 
-        private List<HashItem>[] _items = null;
-
-        public IReadOnlyCollection<KeyValuePair<int, List<HashItem>>> Items => _items?.Select((list, index) => new KeyValuePair<int, List<HashItem>>(index, list)).ToList().AsReadOnly();
-
-        public HashTable()
+       // public IReadOnlyCollection<KeyValuePair<int, List<HashItem>>> Items => _items?.Select((list, index) => new KeyValuePair<int, List<HashItem>>(index, list)).ToList().AsReadOnly();
+        public HashTable(int size)
         {
-            _items = new List<HashItem>[_maxSize];
+            _size = size;
+            _items = new List<HashItem>[_size];
         }
 
-        private int GetHash(int value)
+        private int GetHash(string key)
         {
-            return value % _maxSize;
+            int hash = 0;
+            foreach (char c in key.ToString())
+            {
+                hash += c;
+            }
+            return Math.Abs(hash % _size);
         }
 
-        public void Insert(int key, int value)
+        public void Insert(string key, int value)
         {
             var item = new HashItem(key, value);
-            var hash = GetHash(item.Key);
+            var hash = GetHash(key);
 
             if (_items[hash] == null)
             {
@@ -34,7 +38,7 @@ namespace CourseWork
             _items[hash].Add(item);
         }
 
-        public void Delete(int key)
+        public void Delete(string key)
         {
             // Вычисляем хеш ключа
             var hash = GetHash(key);
@@ -56,6 +60,18 @@ namespace CourseWork
             {
                 chain.Remove(itemToRemove);
             }
+
         }
+
+        public void SetHashTableCondition(List<HashItem>[] items)
+        {
+            _items = items;
+        }
+        public HashTableCondition SaveHashTableCondition(EnumOperations typeOperation)
+        {
+            return new HashTableCondition(_items, typeOperation);
+        }
+       
+       
     }
 }

@@ -28,46 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            labelEnterElement = new Label();
-            inputKeyTextBox = new TextBox();
             buttonInsert = new Button();
             buttonRemove = new Button();
-            dataGridView = new DataGridView();
-            Hash = new DataGridViewTextBoxColumn();
-            Key = new DataGridViewTextBoxColumn();
-            Value = new DataGridViewTextBoxColumn();
-            inputValueTextBox = new TextBox();
-            ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
+            menuStrip1 = new MenuStrip();
+            файлToolStripMenuItem = new ToolStripMenuItem();
+            SaveToolStripMenuItem = new ToolStripMenuItem();
+            LoadToolStripMenuItem = new ToolStripMenuItem();
+            InfoToolStripMenuItem = new ToolStripMenuItem();
+            Инструменты = new GroupBox();
+            menuStrip1.SuspendLayout();
+            Инструменты.SuspendLayout();
             SuspendLayout();
-            // 
-            // labelEnterElement
-            // 
-            labelEnterElement.AutoSize = true;
-            labelEnterElement.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            labelEnterElement.Location = new Point(31, 34);
-            labelEnterElement.Margin = new Padding(2, 0, 2, 0);
-            labelEnterElement.Name = "labelEnterElement";
-            labelEnterElement.Size = new Size(124, 17);
-            labelEnterElement.TabIndex = 29;
-            labelEnterElement.Text = "Enter the element:";
-            // 
-            // inputKeyTextBox
-            // 
-            inputKeyTextBox.BackColor = SystemColors.Window;
-            inputKeyTextBox.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            inputKeyTextBox.ForeColor = SystemColors.WindowText;
-            inputKeyTextBox.Location = new Point(159, 34);
-            inputKeyTextBox.Margin = new Padding(2);
-            inputKeyTextBox.MaxLength = 3;
-            inputKeyTextBox.Name = "inputKeyTextBox";
-            inputKeyTextBox.Size = new Size(36, 23);
-            inputKeyTextBox.TabIndex = 30;
-            inputKeyTextBox.TextAlign = HorizontalAlignment.Center;
             // 
             // buttonInsert
             // 
             buttonInsert.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            buttonInsert.Location = new Point(273, 34);
+            buttonInsert.Location = new Point(18, 59);
             buttonInsert.Margin = new Padding(2);
             buttonInsert.Name = "buttonInsert";
             buttonInsert.Size = new Size(78, 23);
@@ -79,7 +55,7 @@
             // buttonRemove
             // 
             buttonRemove.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            buttonRemove.Location = new Point(402, 34);
+            buttonRemove.Location = new Point(18, 21);
             buttonRemove.Margin = new Padding(2);
             buttonRemove.Name = "buttonRemove";
             buttonRemove.Size = new Size(78, 23);
@@ -88,43 +64,51 @@
             buttonRemove.UseVisualStyleBackColor = true;
             buttonRemove.Click += buttonRemove_Click;
             // 
-            // dataGridView
+            // menuStrip1
             // 
-            dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView.Columns.AddRange(new DataGridViewColumn[] { Hash, Key, Value });
-            dataGridView.Location = new Point(31, 87);
-            dataGridView.Name = "dataGridView";
-            dataGridView.RowTemplate.Height = 25;
-            dataGridView.Size = new Size(460, 164);
-            dataGridView.TabIndex = 65;
+            menuStrip1.Items.AddRange(new ToolStripItem[] { файлToolStripMenuItem, InfoToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(800, 24);
+            menuStrip1.TabIndex = 33;
+            menuStrip1.Text = "menuStrip1";
             // 
-            // Hash
+            // файлToolStripMenuItem
             // 
-            Hash.HeaderText = "Hash";
-            Hash.Name = "Hash";
+            файлToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { SaveToolStripMenuItem, LoadToolStripMenuItem });
+            файлToolStripMenuItem.Name = "файлToolStripMenuItem";
+            файлToolStripMenuItem.Size = new Size(48, 20);
+            файлToolStripMenuItem.Text = "Файл";
             // 
-            // Key
+            // SaveToolStripMenuItem
             // 
-            Key.HeaderText = "Key";
-            Key.Name = "Key";
+            SaveToolStripMenuItem.Name = "SaveToolStripMenuItem";
+            SaveToolStripMenuItem.Size = new Size(180, 22);
+            SaveToolStripMenuItem.Text = "Сохранить";
             // 
-            // Value
+            // LoadToolStripMenuItem
             // 
-            Value.HeaderText = "Value";
-            Value.Name = "Value";
+            LoadToolStripMenuItem.Name = "LoadToolStripMenuItem";
+            LoadToolStripMenuItem.Size = new Size(180, 22);
+            LoadToolStripMenuItem.Text = "Загрузить";
             // 
-            // inputValueTextBox
+            // InfoToolStripMenuItem
             // 
-            inputValueTextBox.BackColor = SystemColors.Window;
-            inputValueTextBox.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            inputValueTextBox.ForeColor = SystemColors.WindowText;
-            inputValueTextBox.Location = new Point(211, 34);
-            inputValueTextBox.Margin = new Padding(2);
-            inputValueTextBox.MaxLength = 3;
-            inputValueTextBox.Name = "inputValueTextBox";
-            inputValueTextBox.Size = new Size(36, 23);
-            inputValueTextBox.TabIndex = 66;
-            inputValueTextBox.TextAlign = HorizontalAlignment.Center;
+            InfoToolStripMenuItem.Name = "InfoToolStripMenuItem";
+            InfoToolStripMenuItem.Size = new Size(93, 20);
+            InfoToolStripMenuItem.Text = "Информация";
+            // 
+            // Инструменты
+            // 
+            Инструменты.Controls.Add(buttonInsert);
+            Инструменты.Controls.Add(buttonRemove);
+            Инструменты.Dock = DockStyle.Right;
+            Инструменты.Location = new Point(600, 24);
+            Инструменты.Name = "Инструменты";
+            Инструменты.Size = new Size(200, 426);
+            Инструменты.TabIndex = 34;
+            Инструменты.TabStop = false;
+            Инструменты.Text = "Инструменты";
             // 
             // FormHashTable
             // 
@@ -132,29 +116,26 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
             ClientSize = new Size(800, 450);
-            Controls.Add(inputValueTextBox);
-            Controls.Add(dataGridView);
-            Controls.Add(buttonRemove);
-            Controls.Add(buttonInsert);
-            Controls.Add(inputKeyTextBox);
-            Controls.Add(labelEnterElement);
+            Controls.Add(Инструменты);
+            Controls.Add(menuStrip1);
+            MainMenuStrip = menuStrip1;
             Name = "FormHashTable";
             Text = "HashTable";
-            ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
+            Инструменты.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private Label labelEnterElement;
-        private TextBox inputKeyTextBox;
         private Button buttonInsert;
         private Button buttonRemove;
-        private DataGridView dataGridView;
-        private TextBox inputValueTextBox;
-        private DataGridViewTextBoxColumn Hash;
-        private DataGridViewTextBoxColumn Key;
-        private DataGridViewTextBoxColumn Value;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem файлToolStripMenuItem;
+        private ToolStripMenuItem SaveToolStripMenuItem;
+        private ToolStripMenuItem LoadToolStripMenuItem;
+        private ToolStripMenuItem InfoToolStripMenuItem;
+        private GroupBox Инструменты;
     }
 }
