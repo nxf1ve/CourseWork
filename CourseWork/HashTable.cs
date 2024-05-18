@@ -7,8 +7,10 @@ namespace CourseWork
     {
         private int _size;
         private List<HashItem>[] _items;
-
-       // public IReadOnlyCollection<KeyValuePair<int, List<HashItem>>> Items => _items?.Select((list, index) => new KeyValuePair<int, List<HashItem>>(index, list)).ToList().AsReadOnly();
+        public List<HashItem>[] GetItems()
+        {
+            return _items;
+        }
         public HashTable(int size)
         {
             _size = size;
@@ -62,16 +64,45 @@ namespace CourseWork
             }
 
         }
+        public int Get(string key)
+        {
+            int index = GetHash(key);
+            if (_items[index] != null)
+            {
+                foreach (var item in _items[index])
+                {
+                    if (item.Key == key)
+                    {
+                        return item.Value;
+                    }
+                }
+            }
+            return -1;
+        }
 
-        public void SetHashTableCondition(List<HashItem>[] items)
+        public void SetHashTableCondition(HashTableCondition condition)
         {
-            _items = items;
+            _items = condition._hashTable;
+            _size = condition.hashTablesize;
         }
-        public HashTableCondition SaveHashTableCondition(EnumOperations typeOperation)
+        public HashTableCondition SaveHashTableCondition(EnumOperations typeOperation, HashItem item)
         {
-            return new HashTableCondition(_items, typeOperation);
+            // Создаем копию массива _items
+            var itemsCopy = new List<HashItem>[_items.Length];
+            for (int i = 0; i < _items.Length; i++)
+            {
+                if (_items[i] != null)
+                {
+                    itemsCopy[i] = new List<HashItem>(_items[i]);
+                }
+            }
+            if (item == null)
+            {
+                return new HashTableCondition(itemsCopy, typeOperation, item, _size, null);
+            }
+            return new HashTableCondition(itemsCopy, typeOperation, item, _size, GetHash(item.Key));
         }
-       
-       
+
+
     }
 }

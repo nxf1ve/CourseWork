@@ -3,6 +3,8 @@
 public enum EnumOperations
 {
     Insert,
-    Delete,
-    Search
+    Remove,
+    SetSize,
+    StepBack,
+    StepForward
 }

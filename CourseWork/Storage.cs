@@ -3,29 +3,31 @@
 public class Storage
 {
     private List<HashTableCondition> _storage;
-    public List<HashTableCondition> GetStorage()
-    {
-        return _storage;
-    }
-
+  
     public Storage()
     {
         _storage = new List<HashTableCondition>(); 
     }
-    public void AddState(HashTableCondition state)
+    public int Count => _storage.Count;
+    public void AddState(HashTableCondition condition)
     {
-        if (state == null)
+        if (condition == null)
         {
             return;
         }
-        _storage.Add(state);
-    }
-    public void IterateStates(List<HashTableCondition> states)
-    {
-        foreach (var state in states)
+        if (_storage.Count > 0 && _storage.Last().Equals(condition))
         {
-            throw new NotImplementedException();
+            _storage.RemoveAt(_storage.Count - 1);
         }
+        _storage.Add(condition);
+    }
+    public HashTableCondition GetCondition(int index)
+    {
+        if (_storage[index] == null || index < 0 ) 
+        {
+            throw new IndexOutOfRangeException();
+        }
+        return _storage[index];
     }
 
 }
