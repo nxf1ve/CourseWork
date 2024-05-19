@@ -5,7 +5,7 @@ namespace CourseWork;
 public class HashTableCondition
 {
     public List<HashItem>[] _hashTable;
-    private EnumOperations operationType;
+    public EnumOperations operationType;
     public HashItem selectedItem;
     public int hashTablesize;
     public int? keyHash;

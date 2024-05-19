@@ -20,6 +20,7 @@ namespace CourseWork
 
             buttonInsert.Enabled = true;
             buttonRemove.Enabled = true;
+            buttonSearch.Enabled = true;
         }
 
         public FormHashTable()
@@ -37,7 +38,20 @@ namespace CourseWork
             Bitmap bitmap = new(pictureBox.Width, pictureBox.Height);
             Graphics graphics = Graphics.FromImage(bitmap);
             graphics.Clear(Color.FromArgb(255, 224, 192));
-            hashTableVisualization.DrawHashTable(graphics, hashTabelManager.GetStorage().GetCondition(currentConditionIndex));
+            // Получение текущего состояния хэш-таблицы
+            var condition = hashTabelManager.GetStorage().GetCondition(currentConditionIndex);
+
+            // Если операция - поиск, передаем ключ в метод DrawHashTable
+            if (condition.operationType == EnumOperations.Search)
+            {
+                hashTableVisualization.DrawHashTable(graphics, condition);
+            }
+            else
+            {
+                // В противном случае передаем null
+                hashTableVisualization.DrawHashTable(graphics, condition);
+            }
+
             pictureBox.Image = bitmap;
         }
 
@@ -106,6 +120,7 @@ namespace CourseWork
                 case EnumOperations.SetSize:
                     currentConditionStep = 0;
                     break;
+
                 default:
                     currentConditionStep++;
                     break;
@@ -113,6 +128,7 @@ namespace CourseWork
             if (currentConditionStep > 0)
             {
                 UpdateTextBoxes(currentConditionStep);
+                buttonSearch.Enabled = true;
 
                 if (currentConditionStep == hashTabelManager.GetStorage().Count - 1)
                 {

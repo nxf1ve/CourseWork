@@ -6,7 +6,8 @@ public partial class FormHashTableInput : Form
 {
     private event Func<string, int, Storage>? _insertItemDelegate;
     private event Action<int>? _setSizeDelegate;
-    private event Func<string, Storage>? _keyOperationDelegate;
+    private event Func<string, Storage>? _deleteItemDelegate;
+    private event Func<string, bool>? _searchItemDelegate;
     private Action<EnumOperations>? _afterActionCallback;
     public FormHashTableInput(EnumOperations actionType)
     {
@@ -26,6 +27,10 @@ public partial class FormHashTableInput : Form
                 buttonSetSize.Enabled = true;
                 maskedTextBoxInputSize.Enabled = true;
                 break;
+            case EnumOperations.Search:
+                buttonSearch.Enabled = true;
+                textBoxKeyToSearch.Enabled = true;
+                break;
             default:
                 throw new ArgumentException();
 
@@ -43,7 +48,12 @@ public partial class FormHashTableInput : Form
     }
     public void AddEvent(Func<string, Storage> deleteItemDelegate, Action<EnumOperations> afterActionCallback)
     {
-        _keyOperationDelegate += deleteItemDelegate;
+        _deleteItemDelegate += deleteItemDelegate;
+        _afterActionCallback = afterActionCallback;
+    }
+    public void AddEvent(Func<string, bool>? searchItemDelegate, Action<EnumOperations> afterActionCallback)
+    {
+        _searchItemDelegate += searchItemDelegate;
         _afterActionCallback = afterActionCallback;
     }
     private void buttonInsert_Click(object sender, EventArgs e)
@@ -94,7 +104,7 @@ public partial class FormHashTableInput : Form
                 throw new Exception("Входные данные отсутствуют");
             }
             string key = textBoxKeyToRemove.Text;
-            _keyOperationDelegate?.Invoke(key);
+            _deleteItemDelegate?.Invoke(key);
             _afterActionCallback?.Invoke(EnumOperations.Remove);
             Close();
         }
@@ -113,8 +123,13 @@ public partial class FormHashTableInput : Form
                 throw new Exception("Входные данные отсутствуют");
             }
             string key = textBoxKeyToSearch.Text;
-            _keyOperationDelegate?.Invoke(key);
-            _afterActionCallback?.Invoke(EnumOperations.Search);
+            bool searchResult = _searchItemDelegate.Invoke(key);
+
+            // Проверка результата операции поиска
+            if (searchResult)
+            {
+                _afterActionCallback?.Invoke(EnumOperations.Search);
+            }
             Close();
         }
         catch (Exception ex)

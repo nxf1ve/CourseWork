@@ -35,6 +35,7 @@
             SaveToolStripMenuItem = new ToolStripMenuItem();
             LoadToolStripMenuItem = new ToolStripMenuItem();
             Инструменты = new GroupBox();
+            buttonSearch = new Button();
             labelTotalSteps = new Label();
             labelCurrentStep = new Label();
             textBoxTotalSteps = new TextBox();
@@ -57,7 +58,6 @@
             pictureBox = new PictureBox();
             saveFileDialog = new OpenFileDialog();
             openFileDialog = new OpenFileDialog();
-            buttonSearch = new Button();
             menuStrip.SuspendLayout();
             Инструменты.SuspendLayout();
             panelHash.SuspendLayout();
@@ -109,14 +109,16 @@
             // SaveToolStripMenuItem
             // 
             SaveToolStripMenuItem.Name = "SaveToolStripMenuItem";
-            SaveToolStripMenuItem.Size = new Size(133, 22);
+            SaveToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.S;
+            SaveToolStripMenuItem.Size = new Size(180, 22);
             SaveToolStripMenuItem.Text = "Сохранить";
             SaveToolStripMenuItem.Click += SaveToolStripMenuItem_Click;
             // 
             // LoadToolStripMenuItem
             // 
             LoadToolStripMenuItem.Name = "LoadToolStripMenuItem";
-            LoadToolStripMenuItem.Size = new Size(133, 22);
+            LoadToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.L;
+            LoadToolStripMenuItem.Size = new Size(180, 22);
             LoadToolStripMenuItem.Text = "Загрузить";
             LoadToolStripMenuItem.Click += LoadToolStripMenuItem_Click;
             // 
@@ -142,6 +144,19 @@
             Инструменты.TabIndex = 34;
             Инструменты.TabStop = false;
             Инструменты.Text = "Инструменты";
+            // 
+            // buttonSearch
+            // 
+            buttonSearch.Enabled = false;
+            buttonSearch.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonSearch.Location = new Point(5, 128);
+            buttonSearch.Margin = new Padding(2);
+            buttonSearch.Name = "buttonSearch";
+            buttonSearch.Size = new Size(190, 23);
+            buttonSearch.TabIndex = 40;
+            buttonSearch.Text = "Найти элемент по ключу";
+            buttonSearch.UseVisualStyleBackColor = true;
+            buttonSearch.Click += buttonSearch_Click;
             // 
             // labelTotalSteps
             // 
@@ -354,19 +369,6 @@
             // saveFileDialog
             // 
             saveFileDialog.CheckFileExists = false;
-            // 
-            // buttonSearch
-            // 
-            buttonSearch.Enabled = false;
-            buttonSearch.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            buttonSearch.Location = new Point(5, 128);
-            buttonSearch.Margin = new Padding(2);
-            buttonSearch.Name = "buttonSearch";
-            buttonSearch.Size = new Size(190, 23);
-            buttonSearch.TabIndex = 40;
-            buttonSearch.Text = "Найти элемент по ключу";
-            buttonSearch.UseVisualStyleBackColor = true;
-            buttonSearch.Click += buttonSearch_Click;
             // 
             // FormHashTable
             // 

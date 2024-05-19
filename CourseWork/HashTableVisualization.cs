@@ -25,10 +25,10 @@ public class HashTableVisualization
         }
         
     }
-    public void DrawHashTableItem(Graphics g, int x, int y, HashItem item) 
+    public void DrawHashTableItem(Graphics g, int x, int y, HashItem item, bool isFound) 
     {
         Pen pen = new(Color.Black);
-        Brush brush = new SolidBrush(Color.White);
+        Brush brush = new SolidBrush(isFound ? Color.Green : Color.White);
         if (hashTableItemWidth.HasValue && hashTableItemHeight.HasValue)
         {
             Rectangle rectangleItem = new Rectangle(x, y, hashTableItemWidth.Value, hashTableItemHeight.Value);
@@ -58,7 +58,7 @@ public class HashTableVisualization
         int startY = 15; // Начальная координата y для первой ячейки хэш-таблицы
         int spacingX = 60; // Расстояние между ячейками по горизонтали
         int spacingY = 40; // Расстояние между ячейками по вертикали
-
+        bool isItemSelected = false;
         // Визуализация ячеек хэш-таблицы
         for (int i = 0; i < condition.hashTablesize; i++)
         {
@@ -76,7 +76,12 @@ public class HashTableVisualization
                 // Отобразить элемент в текущей ячейке хэш-таблицы
                 int currentX = itemCount * spacingX; // Текущая координата x для элемента
                 int currentY = startY + i * spacingY; // Текущая координата y для элемента
-                DrawHashTableItem(g, currentX, currentY, item);
+                bool isFound = condition.selectedItem != null && item.Key == condition.selectedItem.Key && item.Value == condition.selectedItem.Value;
+                if (isFound)
+                {
+                    isItemSelected = true;
+                }
+                DrawHashTableItem(g, currentX, currentY, item, isFound);
 
                 // Нарисовать линию от предыдущего элемента к текущему
                 g.DrawLine(pen, prevX, prevY, currentX, currentY + hashTableBucketHeight.Value / 2);

@@ -1,4 +1,5 @@
-﻿using System.Reflection.Metadata;
+﻿using System.Collections;
+using System.Reflection.Metadata;
 using System.Windows.Forms;
 
 namespace CourseWork;
@@ -39,12 +40,24 @@ public class Manager
         storage.AddState(condition);
         return storage;
     }
-    public Storage Search(string key)
+    public bool Search(string key)
     {
-        if (hashTable.Get(key) != -1)
+        int value = hashTable.Get(key);
+        HashItem selectedItem;
+        if (value != -1)
         {
-            HashTableCondition condition = hashTable.SaveHashTableCondition(EnumOperations.Remove, new HashItem(key, hashTable.Get(key)));
+            selectedItem = new HashItem(key, value);            
+            HashTableCondition condition = hashTable.SaveHashTableCondition(EnumOperations.Search, selectedItem);
+            storage.AddState(condition);
+            return true;
         }
+        else
+        {
+            MessageBox.Show("Элемент не найден.", "Результат поиска", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return false;
+        }
+       
+        
     }
 
     public void SetHashTableCondition(HashTableCondition condition)
