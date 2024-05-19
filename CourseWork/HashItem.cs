@@ -13,4 +13,13 @@ public class HashItem
         Value = value;
 
     }
+    public override string ToString()
+    {
+        return $"{Key}:{Value}";
+    }
+    public static HashItem FromString(string str)
+    {
+        var parts = str.Split(':');
+        return new HashItem(parts[0], int.Parse(parts[1]));
+    }
 }

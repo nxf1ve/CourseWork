@@ -30,11 +30,13 @@
         {
             buttonInsert = new Button();
             buttonRemove = new Button();
-            menuStrip1 = new MenuStrip();
+            menuStrip = new MenuStrip();
             файлToolStripMenuItem = new ToolStripMenuItem();
             SaveToolStripMenuItem = new ToolStripMenuItem();
             LoadToolStripMenuItem = new ToolStripMenuItem();
             Инструменты = new GroupBox();
+            labelTotalSteps = new Label();
+            labelCurrentStep = new Label();
             textBoxTotalSteps = new TextBox();
             textBoxStep = new TextBox();
             panelHash = new Panel();
@@ -53,9 +55,10 @@
             buttonStepBack = new Button();
             buttonStepForward = new Button();
             pictureBox = new PictureBox();
-            labelCurrentStep = new Label();
-            labelTotalSteps = new Label();
-            menuStrip1.SuspendLayout();
+            saveFileDialog = new OpenFileDialog();
+            openFileDialog = new OpenFileDialog();
+            buttonSearch = new Button();
+            menuStrip.SuspendLayout();
             Инструменты.SuspendLayout();
             panelHash.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
@@ -87,14 +90,14 @@
             buttonRemove.UseVisualStyleBackColor = true;
             buttonRemove.Click += buttonRemove_Click;
             // 
-            // menuStrip1
+            // menuStrip
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { файлToolStripMenuItem });
-            menuStrip1.Location = new Point(0, 0);
-            menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(969, 24);
-            menuStrip1.TabIndex = 33;
-            menuStrip1.Text = "menuStrip1";
+            menuStrip.Items.AddRange(new ToolStripItem[] { файлToolStripMenuItem });
+            menuStrip.Location = new Point(0, 0);
+            menuStrip.Name = "menuStrip";
+            menuStrip.Size = new Size(969, 24);
+            menuStrip.TabIndex = 33;
+            menuStrip.Text = "menuStrip1";
             // 
             // файлToolStripMenuItem
             // 
@@ -108,16 +111,19 @@
             SaveToolStripMenuItem.Name = "SaveToolStripMenuItem";
             SaveToolStripMenuItem.Size = new Size(133, 22);
             SaveToolStripMenuItem.Text = "Сохранить";
+            SaveToolStripMenuItem.Click += SaveToolStripMenuItem_Click;
             // 
             // LoadToolStripMenuItem
             // 
             LoadToolStripMenuItem.Name = "LoadToolStripMenuItem";
             LoadToolStripMenuItem.Size = new Size(133, 22);
             LoadToolStripMenuItem.Text = "Загрузить";
+            LoadToolStripMenuItem.Click += LoadToolStripMenuItem_Click;
             // 
             // Инструменты
             // 
             Инструменты.BackColor = SystemColors.ButtonFace;
+            Инструменты.Controls.Add(buttonSearch);
             Инструменты.Controls.Add(labelTotalSteps);
             Инструменты.Controls.Add(labelCurrentStep);
             Инструменты.Controls.Add(textBoxTotalSteps);
@@ -137,12 +143,30 @@
             Инструменты.TabStop = false;
             Инструменты.Text = "Инструменты";
             // 
+            // labelTotalSteps
+            // 
+            labelTotalSteps.AutoSize = true;
+            labelTotalSteps.Location = new Point(106, 213);
+            labelTotalSteps.Name = "labelTotalSteps";
+            labelTotalSteps.Size = new Size(76, 15);
+            labelTotalSteps.TabIndex = 39;
+            labelTotalSteps.Text = "Всего шагов";
+            // 
+            // labelCurrentStep
+            // 
+            labelCurrentStep.AutoSize = true;
+            labelCurrentStep.Location = new Point(20, 213);
+            labelCurrentStep.Name = "labelCurrentStep";
+            labelCurrentStep.Size = new Size(81, 15);
+            labelCurrentStep.TabIndex = 10;
+            labelCurrentStep.Text = "Текущий шаг";
+            // 
             // textBoxTotalSteps
             // 
             textBoxTotalSteps.BackColor = SystemColors.ButtonHighlight;
             textBoxTotalSteps.BorderStyle = BorderStyle.FixedSingle;
             textBoxTotalSteps.ImeMode = ImeMode.NoControl;
-            textBoxTotalSteps.Location = new Point(106, 198);
+            textBoxTotalSteps.Location = new Point(106, 231);
             textBoxTotalSteps.Name = "textBoxTotalSteps";
             textBoxTotalSteps.ReadOnly = true;
             textBoxTotalSteps.Size = new Size(75, 23);
@@ -153,7 +177,7 @@
             textBoxStep.BackColor = SystemColors.ButtonHighlight;
             textBoxStep.BorderStyle = BorderStyle.FixedSingle;
             textBoxStep.ImeMode = ImeMode.NoControl;
-            textBoxStep.Location = new Point(20, 198);
+            textBoxStep.Location = new Point(20, 231);
             textBoxStep.Name = "textBoxStep";
             textBoxStep.ReadOnly = true;
             textBoxStep.Size = new Size(75, 23);
@@ -295,7 +319,7 @@
             // 
             buttonStepBack.Enabled = false;
             buttonStepBack.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            buttonStepBack.Location = new Point(5, 240);
+            buttonStepBack.Location = new Point(5, 273);
             buttonStepBack.Margin = new Padding(2);
             buttonStepBack.Name = "buttonStepBack";
             buttonStepBack.Size = new Size(190, 23);
@@ -308,7 +332,7 @@
             // 
             buttonStepForward.Enabled = false;
             buttonStepForward.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            buttonStepForward.Location = new Point(5, 139);
+            buttonStepForward.Location = new Point(5, 172);
             buttonStepForward.Margin = new Padding(2);
             buttonStepForward.Name = "buttonStepForward";
             buttonStepForward.Size = new Size(190, 23);
@@ -327,23 +351,22 @@
             pictureBox.TabIndex = 35;
             pictureBox.TabStop = false;
             // 
-            // labelCurrentStep
+            // saveFileDialog
             // 
-            labelCurrentStep.AutoSize = true;
-            labelCurrentStep.Location = new Point(20, 180);
-            labelCurrentStep.Name = "labelCurrentStep";
-            labelCurrentStep.Size = new Size(81, 15);
-            labelCurrentStep.TabIndex = 10;
-            labelCurrentStep.Text = "Текущий шаг";
+            saveFileDialog.CheckFileExists = false;
             // 
-            // labelTotalSteps
+            // buttonSearch
             // 
-            labelTotalSteps.AutoSize = true;
-            labelTotalSteps.Location = new Point(106, 180);
-            labelTotalSteps.Name = "labelTotalSteps";
-            labelTotalSteps.Size = new Size(76, 15);
-            labelTotalSteps.TabIndex = 39;
-            labelTotalSteps.Text = "Всего шагов";
+            buttonSearch.Enabled = false;
+            buttonSearch.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonSearch.Location = new Point(5, 128);
+            buttonSearch.Margin = new Padding(2);
+            buttonSearch.Name = "buttonSearch";
+            buttonSearch.Size = new Size(190, 23);
+            buttonSearch.TabIndex = 40;
+            buttonSearch.Text = "Найти элемент по ключу";
+            buttonSearch.UseVisualStyleBackColor = true;
+            buttonSearch.Click += buttonSearch_Click;
             // 
             // FormHashTable
             // 
@@ -353,12 +376,12 @@
             ClientSize = new Size(969, 583);
             Controls.Add(pictureBox);
             Controls.Add(Инструменты);
-            Controls.Add(menuStrip1);
-            MainMenuStrip = menuStrip1;
+            Controls.Add(menuStrip);
+            MainMenuStrip = menuStrip;
             Name = "FormHashTable";
             Text = "Хэш таблица";
-            menuStrip1.ResumeLayout(false);
-            menuStrip1.PerformLayout();
+            menuStrip.ResumeLayout(false);
+            menuStrip.PerformLayout();
             Инструменты.ResumeLayout(false);
             Инструменты.PerformLayout();
             panelHash.ResumeLayout(false);
@@ -371,7 +394,7 @@
         #endregion
         private Button buttonInsert;
         private Button buttonRemove;
-        private MenuStrip menuStrip1;
+        private MenuStrip menuStrip;
         private ToolStripMenuItem файлToolStripMenuItem;
         private ToolStripMenuItem SaveToolStripMenuItem;
         private ToolStripMenuItem LoadToolStripMenuItem;
@@ -396,5 +419,8 @@
         private TextBox textBoxTotalSteps;
         private Label labelTotalSteps;
         private Label labelCurrentStep;
+        private OpenFileDialog saveFileDialog;
+        private OpenFileDialog openFileDialog;
+        private Button buttonSearch;
     }
 }

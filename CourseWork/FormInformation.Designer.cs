@@ -28,26 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
-            groupBox1 = new GroupBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormInformation));
+            richTextBoxDescription = new RichTextBox();
             SuspendLayout();
             // 
-            // groupBox1
+            // richTextBoxDescription
             // 
-            groupBox1.BackColor = Color.FromArgb(224, 224, 224);
-            groupBox1.Location = new Point(22, 21);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(281, 403);
-            groupBox1.TabIndex = 0;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Описание";
+            richTextBoxDescription.Font = new Font("Times New Roman", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            richTextBoxDescription.Location = new Point(23, 58);
+            richTextBoxDescription.Name = "richTextBoxDescription";
+            richTextBoxDescription.Size = new Size(507, 380);
+            richTextBoxDescription.TabIndex = 0;
+            richTextBoxDescription.Text = resources.GetString("richTextBoxDescription.Text");
             // 
             // FormInformation
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(255, 224, 192);
-            ClientSize = new Size(631, 450);
-            Controls.Add(groupBox1);
+            ClientSize = new Size(558, 450);
+            Controls.Add(richTextBoxDescription);
             Name = "FormInformation";
             Text = "Информация";
             ResumeLayout(false);
@@ -55,6 +55,6 @@
 
         #endregion
 
-        private GroupBox groupBox1;
+        private RichTextBox richTextBoxDescription;
     }
 }

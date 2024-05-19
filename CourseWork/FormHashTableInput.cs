@@ -6,7 +6,7 @@ public partial class FormHashTableInput : Form
 {
     private event Func<string, int, Storage>? _insertItemDelegate;
     private event Action<int>? _setSizeDelegate;
-    private event Func<string, Storage>? _deleteItemDelegate;
+    private event Func<string, Storage>? _keyOperationDelegate;
     private Action<EnumOperations>? _afterActionCallback;
     public FormHashTableInput(EnumOperations actionType)
     {
@@ -28,7 +28,7 @@ public partial class FormHashTableInput : Form
                 break;
             default:
                 throw new ArgumentException();
-                
+
         }
     }
 
@@ -43,7 +43,7 @@ public partial class FormHashTableInput : Form
     }
     public void AddEvent(Func<string, Storage> deleteItemDelegate, Action<EnumOperations> afterActionCallback)
     {
-        _deleteItemDelegate += deleteItemDelegate;
+        _keyOperationDelegate += deleteItemDelegate;
         _afterActionCallback = afterActionCallback;
     }
     private void buttonInsert_Click(object sender, EventArgs e)
@@ -94,8 +94,27 @@ public partial class FormHashTableInput : Form
                 throw new Exception("Входные данные отсутствуют");
             }
             string key = textBoxKeyToRemove.Text;
-            _deleteItemDelegate?.Invoke(key);
+            _keyOperationDelegate?.Invoke(key);
             _afterActionCallback?.Invoke(EnumOperations.Remove);
+            Close();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show("Пожалуйста, введите строку для ключа.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+    }
+
+    private void buttonSearch_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(textBoxKeyToSearch.Text))
+            {
+                throw new Exception("Входные данные отсутствуют");
+            }
+            string key = textBoxKeyToSearch.Text;
+            _keyOperationDelegate?.Invoke(key);
+            _afterActionCallback?.Invoke(EnumOperations.Search);
             Close();
         }
         catch (Exception ex)

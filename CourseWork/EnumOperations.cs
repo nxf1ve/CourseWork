@@ -6,5 +6,7 @@ public enum EnumOperations
     Remove,
     SetSize,
     StepBack,
-    StepForward
+    StepForward,
+    Search,
+    None
 }

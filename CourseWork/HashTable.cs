@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace CourseWork
 {
@@ -82,18 +83,21 @@ namespace CourseWork
 
         public void SetHashTableCondition(HashTableCondition condition)
         {
-            _items = condition._hashTable;
+            _items = condition._hashTable.Select(bucket => bucket?.Select(item => new HashItem(item.Key, item.Value)).ToList()).ToArray();
             _size = condition.hashTablesize;
         }
         public HashTableCondition SaveHashTableCondition(EnumOperations typeOperation, HashItem item)
         {
-            // Создаем копию массива _items
             var itemsCopy = new List<HashItem>[_items.Length];
             for (int i = 0; i < _items.Length; i++)
             {
                 if (_items[i] != null)
                 {
-                    itemsCopy[i] = new List<HashItem>(_items[i]);
+                    itemsCopy[i] = new List<HashItem>();
+                    foreach (var hashItem in _items[i])
+                    {
+                        itemsCopy[i].Add(new HashItem(hashItem.Key, hashItem.Value));
+                    }
                 }
             }
             if (item == null)
@@ -102,7 +106,6 @@ namespace CourseWork
             }
             return new HashTableCondition(itemsCopy, typeOperation, item, _size, GetHash(item.Key));
         }
-
 
     }
 }

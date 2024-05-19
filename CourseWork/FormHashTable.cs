@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace CourseWork
@@ -14,13 +15,13 @@ namespace CourseWork
             HashTableParameters parameters = new HashTableParameters();
             parameters.Size = size;
             hashTabelManager = new Manager(parameters);
-            textBoxSize.Text = size.ToString(); 
+            textBoxSize.Text = size.ToString();
             RepaintCurrentCondition(EnumOperations.SetSize);
 
             buttonInsert.Enabled = true;
             buttonRemove.Enabled = true;
-
         }
+
         public FormHashTable()
         {
             InitializeComponent();
@@ -46,7 +47,6 @@ namespace CourseWork
             form.Show();
             form.AddEvent(hashTabelManager.Insert, RepaintCurrentCondition);
             buttonStepBack.Enabled = true;
-
         }
 
         private void buttonRemove_Click(object sender, EventArgs e)
@@ -56,38 +56,36 @@ namespace CourseWork
             form.AddEvent(hashTabelManager.Remove, RepaintCurrentCondition);
             buttonStepBack.Enabled = true;
         }
+        private void buttonSearch_Click(object sender, EventArgs e)
+        {
+            FormHashTableInput form = new FormHashTableInput(EnumOperations.Search);
+            form.Show();
+            form.AddEvent(hashTabelManager.Search, RepaintCurrentCondition);
+        }
 
         private void buttonSetSize_Click(object sender, EventArgs e)
         {
             FormHashTableInput form = new FormHashTableInput(EnumOperations.SetSize);
             form.Show();
             form.AddEvent(CreateHashTableManager);
-            
         }
 
         private void buttonStepForward_Click(object sender, EventArgs e)
         {
-            if (currentConditionStep+1 <= hashTabelManager.GetStorage().Count )
+            if (currentConditionStep + 1 <= hashTabelManager.GetStorage().Count)
             {
-                
                 RepaintCurrentCondition(EnumOperations.StepForward);
-                buttonStepBack.Enabled=true;
-
+                buttonStepBack.Enabled = true;
             }
-            
         }
 
         private void buttonStepBack_Click(object sender, EventArgs e)
         {
-            if (currentConditionStep-1 >= 0)
+            if (currentConditionStep - 1 >= 0)
             {
                 RepaintCurrentCondition(EnumOperations.StepBack);
                 buttonStepForward.Enabled = true;
-
-                //hashTabelManager.SetHashTableCondition(hashTabelManager.GetStorage().GetCondition(currentConditionStep));
-               
             }
-            
         }
 
         private void buttonInfo_Click(object sender, EventArgs e)
@@ -106,6 +104,7 @@ namespace CourseWork
                     buttonRemove.Enabled = false;
                     break;
                 case EnumOperations.SetSize:
+                    currentConditionStep = 0;
                     break;
                 default:
                     currentConditionStep++;
@@ -128,12 +127,17 @@ namespace CourseWork
                 textBoxBucket.Text = string.Empty;
                 textBoxKey.Text = string.Empty;
                 buttonStepBack.Enabled = false;
+                if (hashTabelManager.GetStorage().Count - 1 > 0)
+                {
+                    buttonStepForward.Enabled = true;
+                }
             }
             textBoxStep.Text = currentConditionStep.ToString();
             textBoxTotalSteps.Text = (hashTabelManager.GetStorage().Count - 1).ToString();
+            hashTabelManager.SetHashTableCondition(hashTabelManager.GetStorage().GetCondition(currentConditionStep));
             Show(currentConditionStep);
-
         }
+
         private void UpdateTextBoxes(int step)
         {
             var condition = hashTabelManager.GetStorage().GetCondition(step);
@@ -146,7 +150,49 @@ namespace CourseWork
                 textBoxBucket.Text = (hashCode % hashTableSize).ToString();
             }
         }
+
+        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    hashTabelManager.GetStorage().SaveData(saveFileDialog.FileName);
+                    MessageBox.Show("Сохранение прошло успешно", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Результат", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void LoadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    hashTabelManager = new Manager();
+                    hashTabelManager.GetStorage().LoadData(openFileDialog.FileName);
+                    if (hashTabelManager.GetStorage().Count > 0)
+                    {
+                        var firstCondition = hashTabelManager.GetStorage().GetCondition(0);
+                        hashTabelManager.InitializeHashTable(firstCondition.hashTablesize);
+                        hashTabelManager.SetHashTableCondition(firstCondition);
+                    }
+                    MessageBox.Show("Загрузка прошла успешно", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    currentConditionStep = 0;
+                    int size = hashTabelManager.GetStorage().GetCondition(currentConditionStep).hashTablesize;
+                    textBoxSize.Text = size.ToString();
+                    RepaintCurrentCondition(EnumOperations.SetSize);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Не загрузилось", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+     
     }
-
-
 }

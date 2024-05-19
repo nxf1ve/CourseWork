@@ -41,6 +41,10 @@
             buttonSetSize = new Button();
             maskedTextBoxInputSize = new MaskedTextBox();
             maskedTextBoxValueToInsert = new MaskedTextBox();
+            label1 = new Label();
+            textBoxKeyToSearch = new TextBox();
+            label2 = new Label();
+            buttonSearch = new Button();
             SuspendLayout();
             // 
             // labelInput
@@ -55,7 +59,7 @@
             // textBoxKeyToInsert
             // 
             textBoxKeyToInsert.Enabled = false;
-            textBoxKeyToInsert.Location = new Point(42, 175);
+            textBoxKeyToInsert.Location = new Point(10, 175);
             textBoxKeyToInsert.Name = "textBoxKeyToInsert";
             textBoxKeyToInsert.Size = new Size(69, 23);
             textBoxKeyToInsert.TabIndex = 2;
@@ -63,7 +67,7 @@
             // labelKeyToInsert
             // 
             labelKeyToInsert.AutoSize = true;
-            labelKeyToInsert.Location = new Point(55, 157);
+            labelKeyToInsert.Location = new Point(23, 157);
             labelKeyToInsert.Name = "labelKeyToInsert";
             labelKeyToInsert.Size = new Size(38, 15);
             labelKeyToInsert.TabIndex = 3;
@@ -72,7 +76,7 @@
             // labelValueToInsert
             // 
             labelValueToInsert.AutoSize = true;
-            labelValueToInsert.Location = new Point(117, 157);
+            labelValueToInsert.Location = new Point(85, 157);
             labelValueToInsert.Name = "labelValueToInsert";
             labelValueToInsert.Size = new Size(60, 15);
             labelValueToInsert.TabIndex = 5;
@@ -81,7 +85,7 @@
             // labelInsert
             // 
             labelInsert.AutoSize = true;
-            labelInsert.Location = new Point(55, 122);
+            labelInsert.Location = new Point(23, 122);
             labelInsert.Name = "labelInsert";
             labelInsert.Size = new Size(107, 15);
             labelInsert.TabIndex = 6;
@@ -90,7 +94,7 @@
             // labelRemove
             // 
             labelRemove.AutoSize = true;
-            labelRemove.Location = new Point(323, 122);
+            labelRemove.Location = new Point(188, 122);
             labelRemove.Name = "labelRemove";
             labelRemove.Size = new Size(116, 15);
             labelRemove.TabIndex = 7;
@@ -99,7 +103,7 @@
             // textBoxKeyToRemove
             // 
             textBoxKeyToRemove.Enabled = false;
-            textBoxKeyToRemove.Location = new Point(353, 175);
+            textBoxKeyToRemove.Location = new Point(218, 175);
             textBoxKeyToRemove.Name = "textBoxKeyToRemove";
             textBoxKeyToRemove.Size = new Size(69, 23);
             textBoxKeyToRemove.TabIndex = 8;
@@ -107,7 +111,7 @@
             // labelKeyToRemove
             // 
             labelKeyToRemove.AutoSize = true;
-            labelKeyToRemove.Location = new Point(365, 157);
+            labelKeyToRemove.Location = new Point(230, 157);
             labelKeyToRemove.Name = "labelKeyToRemove";
             labelKeyToRemove.Size = new Size(38, 15);
             labelKeyToRemove.TabIndex = 9;
@@ -116,7 +120,7 @@
             // buttonRemove
             // 
             buttonRemove.Enabled = false;
-            buttonRemove.Location = new Point(323, 222);
+            buttonRemove.Location = new Point(188, 222);
             buttonRemove.Name = "buttonRemove";
             buttonRemove.Size = new Size(116, 23);
             buttonRemove.TabIndex = 10;
@@ -127,7 +131,7 @@
             // buttonInsert
             // 
             buttonInsert.Enabled = false;
-            buttonInsert.Location = new Point(55, 222);
+            buttonInsert.Location = new Point(23, 222);
             buttonInsert.Name = "buttonInsert";
             buttonInsert.Size = new Size(116, 23);
             buttonInsert.TabIndex = 11;
@@ -158,11 +162,48 @@
             // maskedTextBoxValueToInsert
             // 
             maskedTextBoxValueToInsert.Enabled = false;
-            maskedTextBoxValueToInsert.Location = new Point(117, 175);
+            maskedTextBoxValueToInsert.Location = new Point(85, 175);
             maskedTextBoxValueToInsert.Mask = "000";
             maskedTextBoxValueToInsert.Name = "maskedTextBoxValueToInsert";
             maskedTextBoxValueToInsert.Size = new Size(69, 23);
             maskedTextBoxValueToInsert.TabIndex = 14;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(342, 122);
+            label1.Name = "label1";
+            label1.Size = new Size(104, 15);
+            label1.TabIndex = 15;
+            label1.Text = "Операция поиска";
+            // 
+            // textBoxKeyToSearch
+            // 
+            textBoxKeyToSearch.Enabled = false;
+            textBoxKeyToSearch.Location = new Point(360, 175);
+            textBoxKeyToSearch.Name = "textBoxKeyToSearch";
+            textBoxKeyToSearch.Size = new Size(69, 23);
+            textBoxKeyToSearch.TabIndex = 16;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(374, 157);
+            label2.Name = "label2";
+            label2.Size = new Size(38, 15);
+            label2.TabIndex = 17;
+            label2.Text = "Ключ";
+            // 
+            // buttonSearch
+            // 
+            buttonSearch.Enabled = false;
+            buttonSearch.Location = new Point(342, 222);
+            buttonSearch.Name = "buttonSearch";
+            buttonSearch.Size = new Size(116, 23);
+            buttonSearch.TabIndex = 18;
+            buttonSearch.Text = "Найти элемент";
+            buttonSearch.UseVisualStyleBackColor = true;
+            buttonSearch.Click += buttonSearch_Click;
             // 
             // FormHashTableInput
             // 
@@ -170,6 +211,10 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(255, 224, 192);
             ClientSize = new Size(470, 266);
+            Controls.Add(buttonSearch);
+            Controls.Add(label2);
+            Controls.Add(textBoxKeyToSearch);
+            Controls.Add(label1);
             Controls.Add(maskedTextBoxValueToInsert);
             Controls.Add(maskedTextBoxInputSize);
             Controls.Add(buttonSetSize);
@@ -203,5 +248,9 @@
         private Button buttonSetSize;
         private MaskedTextBox maskedTextBoxInputSize;
         private MaskedTextBox maskedTextBoxValueToInsert;
+        private Label label1;
+        private TextBox textBoxKeyToSearch;
+        private Label label2;
+        private Button buttonSearch;
     }
 }

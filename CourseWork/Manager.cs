@@ -6,18 +6,23 @@ namespace CourseWork;
 public class Manager
 {
     private HashTable hashTable;
-    private List<HashItem>[] hashTableItems;
+    public void InitializeHashTable(int size)
+    {
+        hashTable = new HashTable(size);
+    }
     private Storage storage;
     public Storage GetStorage() { return storage; }
 
     public Manager(HashTableParameters parameters)
     {
         hashTable = new HashTable(parameters.Size);
-        hashTableItems = hashTable.GetItems();
         storage = new();
         HashTableCondition condition = hashTable.SaveHashTableCondition(EnumOperations.SetSize, null);
-        //storage.AddState(new HashTableCondition(hashTableItems, EnumOperations.SetSize, null, parameters.Size, 0));
         storage.AddState(condition);
+    }
+    public Manager()
+    {
+        storage = new Storage();
     }
 
     public Storage Insert(string key, int value)
@@ -33,6 +38,13 @@ public class Manager
         HashTableCondition condition = hashTable.SaveHashTableCondition(EnumOperations.Remove, new HashItem(key, hashTable.Get(key)));
         storage.AddState(condition);
         return storage;
+    }
+    public Storage Search(string key)
+    {
+        if (hashTable.Get(key) != -1)
+        {
+            HashTableCondition condition = hashTable.SaveHashTableCondition(EnumOperations.Remove, new HashItem(key, hashTable.Get(key)));
+        }
     }
 
     public void SetHashTableCondition(HashTableCondition condition)
