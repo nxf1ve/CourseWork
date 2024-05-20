@@ -34,6 +34,8 @@
             richTextBoxUsing = new RichTextBox();
             labelUsing = new Label();
             labelHeading = new Label();
+            richTextBoxProgramWorking = new RichTextBox();
+            labelProgramWorking = new Label();
             SuspendLayout();
             // 
             // richTextBoxDescription
@@ -79,19 +81,39 @@
             labelHeading.AutoSize = true;
             labelHeading.BackColor = Color.FromArgb(255, 192, 128);
             labelHeading.BorderStyle = BorderStyle.FixedSingle;
-            labelHeading.Font = new Font("Times New Roman", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            labelHeading.Location = new Point(52, 18);
+            labelHeading.Font = new Font("Times New Roman", 14.28F, FontStyle.Regular, GraphicsUnit.Point);
+            labelHeading.Location = new Point(210, 9);
             labelHeading.Name = "labelHeading";
-            labelHeading.Size = new Size(423, 23);
+            labelHeading.Size = new Size(449, 24);
             labelHeading.TabIndex = 4;
             labelHeading.Text = "Хеш-таблица: метод цепочек хэша является массив";
+            // 
+            // richTextBoxProgramWorking
+            // 
+            richTextBoxProgramWorking.Font = new Font("Times New Roman", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            richTextBoxProgramWorking.Location = new Point(588, 70);
+            richTextBoxProgramWorking.Name = "richTextBoxProgramWorking";
+            richTextBoxProgramWorking.Size = new Size(288, 356);
+            richTextBoxProgramWorking.TabIndex = 5;
+            richTextBoxProgramWorking.Text = resources.GetString("richTextBoxProgramWorking.Text");
+            // 
+            // labelProgramWorking
+            // 
+            labelProgramWorking.AutoSize = true;
+            labelProgramWorking.Location = new Point(597, 52);
+            labelProgramWorking.Name = "labelProgramWorking";
+            labelProgramWorking.Size = new Size(175, 15);
+            labelProgramWorking.TabIndex = 6;
+            labelProgramWorking.Text = "Описание работы программы";
             // 
             // FormInformation
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(255, 224, 192);
-            ClientSize = new Size(558, 450);
+            ClientSize = new Size(901, 450);
+            Controls.Add(labelProgramWorking);
+            Controls.Add(richTextBoxProgramWorking);
             Controls.Add(labelHeading);
             Controls.Add(labelUsing);
             Controls.Add(richTextBoxUsing);
@@ -110,5 +132,7 @@
         private RichTextBox richTextBoxUsing;
         private Label labelUsing;
         private Label labelHeading;
+        private RichTextBox richTextBoxProgramWorking;
+        private Label labelProgramWorking;
     }
 }
