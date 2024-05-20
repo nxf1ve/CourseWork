@@ -8,8 +8,6 @@ public class Storage
     private List<HashTableCondition> _storage;
     private readonly string _separatorItems = ";";
     private readonly string _separatorConditionItems = "|";
-
-
     public Storage()
     {
         _storage = new List<HashTableCondition>(); 

@@ -41,6 +41,7 @@
             richTextBoxDescription.Font = new Font("Times New Roman", 11F, FontStyle.Regular, GraphicsUnit.Point);
             richTextBoxDescription.Location = new Point(23, 70);
             richTextBoxDescription.Name = "richTextBoxDescription";
+            richTextBoxDescription.ReadOnly = true;
             richTextBoxDescription.Size = new Size(507, 172);
             richTextBoxDescription.TabIndex = 0;
             richTextBoxDescription.Text = resources.GetString("richTextBoxDescription.Text");
@@ -59,6 +60,7 @@
             richTextBoxUsing.Font = new Font("Times New Roman", 11F, FontStyle.Regular, GraphicsUnit.Point);
             richTextBoxUsing.Location = new Point(23, 272);
             richTextBoxUsing.Name = "richTextBoxUsing";
+            richTextBoxUsing.ReadOnly = true;
             richTextBoxUsing.Size = new Size(507, 154);
             richTextBoxUsing.TabIndex = 2;
             richTextBoxUsing.Text = resources.GetString("richTextBoxUsing.Text");
