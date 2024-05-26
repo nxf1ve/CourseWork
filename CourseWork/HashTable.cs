@@ -8,10 +8,7 @@ namespace CourseWork
     {
         private int _size;
         private List<HashItem>[] _items;
-        public List<HashItem>[] GetItems()
-        {
-            return _items;
-        }
+ 
         public HashTable(int size)
         {
             _size = size;
@@ -43,22 +40,17 @@ namespace CourseWork
 
         public void Delete(string key)
         {
-            // Вычисляем хеш ключа
             var hash = GetHash(key);
 
-            // Проверяем, существует ли цепочка для этого хеша
             if (_items[hash] == null)
             {
                 return;
             }
 
-            // Находим цепочку элементов
             var chain = _items[hash];
 
-            // Ищем элемент с нужным ключом в цепочке
             var itemToRemove = chain.FirstOrDefault(item => item.Key == key);
 
-            // Если элемент найден, удаляем его из цепочки
             if (itemToRemove != null)
             {
                 chain.Remove(itemToRemove);

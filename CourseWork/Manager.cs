@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Reflection.Metadata;
-using System.Windows.Forms;
-
-namespace CourseWork;
+﻿namespace CourseWork;
 
 public class Manager
 {
